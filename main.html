@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+
+<html lang="en" ng-app="uap">
+
+<head>
+  <script type="text/javascript" src="angular-1.4.3.min.js"></script>
+  <script type="text/javascript" src="main-page.js"></script>
+  <script type="text/javascript" src="uap-app.js"></script>
+</head>
+
+<body onload="attachEvents()">
+  <h1>Welcome to Universal Application Platform(UAP)</h1>
+
+  <div id="test-div">
+    test div
+  </div>
+  <p/>
+
+  <div id="my-form" ng-controller="SaveController">
+      Name: <input type="text" name="my-name" ng-model="name" ng-change="onChange()" />
+      Email: <input type="text" name="my-email" ng-model="email" ng-change="onChange()" />
+      <button type="button" ng-click="save()">Save</button>
+      <p/>
+
+      Name: <input type="text" name="name" readonly='readonly' value="{{name}}" />
+      Email: <input type="text" name="email" readonly='readonly' value="{{email}}" />
+      <span ng-if="saveResult != null"> {{saveResult}} </span>
+  </div>
+
+</body>
+
+</html>

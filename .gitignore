@@ -1,0 +1,20 @@
+# Ignores of some 3rd-party codes
+node_modules/*
+
+# Swap file of VIM
+*.swp
+*.swa
+
+# Below are common ignores
+# Compiled source #
+###################
+*.com
+*.class
+*.dll
+*.exe
+*.o
+*.so
+
+# Logs and databases #
+######################
+*.log
