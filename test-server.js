@@ -1,26 +1,11 @@
+// DEPRECATED, use hapi-server.js
+
+var api = require('./server/api');
+var db = require('./server/db');
+
 var http = require('http');
 var fs = require('fs');
 var urlParser = require('url');
-var mysql = require('mysql');
-
-var createConnection = function() {
-  return mysql.createConnection({
-    host: 'localhost',
-    user: 'root',
-    password: 'gladiator',
-    port: '3306',
-    database: 'test',
-  });
-};
-
-var closeConnection = function(connection) {
-  connection.end(function(error) {
-    if (error) {
-      console.log('Connection close error: ' + error);
-    }
-    console.log('Connection closed');
-  });
-};
 
 var responseWithFile = function(filename, response) {
   fs.readFile(filename, "utf8", function(error, text) {
@@ -36,25 +21,6 @@ var responseWithFile = function(filename, response) {
   });
 };
 
-var saveUser = function(dbConnect, queryParams) {
-  var name = queryParams.name;
-  var email = queryParams.email;
-  console.log('Saving ' + name + ' with email ' + email);
-  if (!name) return;
-  if (!email) {
-    email = '';
-  }
-  var sql = 'insert into uap_test values(?, ?)';
-  var params = [name, email];
-  dbConnect.query(sql, params, function(error, result) {
-    if (error) {
-      console.log('Insert error: ', error.message);
-      return;
-    }
-    console.log('Insert successfully, ', result);
-  });
-};
-
 var dispatcher = function(request, response) {
   console.log('Request url: ' + request.url);
   // Get the path and query parameters as well.
@@ -62,8 +28,8 @@ var dispatcher = function(request, response) {
   var path = parsedRequest.pathname;
   console.log('path: ' + path);
   // console.log('search: ' + parsedRequest.search);
-  if (path == "/save") {
-    saveUser(mysqlConnect, parsedRequest.query);
+  if (path == "/api/save") {
+    api.saveUser(mysqlConnect, parsedRequest.query);
     response.writeHead(200, {'Content-Type': 'text/html;charset=utf-8;'});
     response.end('Saved');
   } else if (path.indexOf('.html') > 0) {
@@ -79,7 +45,7 @@ var dispatcher = function(request, response) {
 };
 
 // Start server
-var mysqlConnect = createConnection();
+var mysqlConnect = db.createConnection();
 if (!mysqlConnect) {
   console.log('Failed to connect to mysql');
   return -1;

@@ -9,3 +9,5 @@ Mysql
 # Setup
 After cloning, run:
 - npm install mysql
+- npm install hapi
+- npm install inert (serve static files in hapi)

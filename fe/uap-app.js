@@ -7,13 +7,14 @@ app.controller('SaveController',
   $scope.email = '';
   $scope.saveResult = null;
 
+  // On inputbox change
   $scope.onChange = function() {
     $scope.saveResult = null;
   }
 
   $scope.save = function() {
     var query = 'name=' + $scope.name + '&email=' + $scope.email;
-    $http.get('/save?' + query).then(function(response) {
+    $http.get('/api/save?' + query).then(function(response) {
       $scope.saveResult =
         response.status + ': ' + response.statusText + ', ' + response.data;
     });
