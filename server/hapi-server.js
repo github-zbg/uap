@@ -1,5 +1,6 @@
 var api = require('./api');
 var db = require('./db');
+var apiResult = require('./api-result');
 
 // hapi framework related
 var Hapi = require('hapi');
@@ -10,12 +11,13 @@ var urlParser = require('url');
 
 // connect to DB
 var mysqlConnect = db.createConnection();
-if (!mysqlConnect) {
-  console.log('Failed to connect to mysql');
-  return -1;
-} else {
+mysqlConnect.connect(function(error) {
+  if (error) {
+    console.log('Failed to connected to mysql, ' + error);
+    process.exit(1);  // exit server
+  }
   console.log('Connected to mysql');
-}
+});
 
 var server = new Hapi.Server();
 server.connection({ port: 8888 });
@@ -49,8 +51,16 @@ server.route({
   path: '/api/save',
   handler: function(request, reply) {
     var parsedRequest = urlParser.parse(request.url, true);
-    api.saveUser(mysqlConnect, parsedRequest.query);
-    reply('Saved');
+    var handleApiResult = function(result) {
+      if (result.code == apiResult.SUCCESS) {
+        reply('Saved');
+      } else if (result.code == apiResult.ARGUMENT_ERROR) {
+        reply(result.error).code(400);
+      } else if (result.code == apiResult.INTERNAL_ERROR) {
+        reply(result.error).code(500);
+      }
+    }
+    api.saveUser(mysqlConnect, parsedRequest.query, handleApiResult);
   }
 });
 

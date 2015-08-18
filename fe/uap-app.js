@@ -14,10 +14,13 @@ app.controller('SaveController',
 
   $scope.save = function() {
     var query = 'name=' + $scope.name + '&email=' + $scope.email;
-    $http.get('/api/save?' + query).then(function(response) {
-      $scope.saveResult =
-        response.status + ': ' + response.statusText + ', ' + response.data;
-    });
+    $http.get('/api/save?' + query).
+        then(function(response) {  // on success
+          $scope.saveResult = response.data;
+        }, function(response) {  // on error
+          $scope.saveResult =
+            response.status + ': ' + response.statusText + ', ' + response.data;
+        });
   };
 
 }]);
