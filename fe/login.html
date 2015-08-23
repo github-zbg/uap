@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+
+<html lang="en" ng-app="uap">
+
+<head>
+  <script type="text/javascript" src="pages/angular-1.4.3.js"></script>
+  <script type="text/javascript" src="pages/angular-cookies.1.4.3.js"></script>
+  <script type="text/javascript" src="pages/uap-app.js"></script>
+</head>
+
+<body>
+  <h1>Login to Universal Application Platform(UAP)</h1>
+
+  <div id="login-div" ng-controller="LoginController">
+      UserId(email): <input type="text" name="userid" ng-model="userid" />
+      Nick name: <input type="text" name="nickname" ng-model="nickname" />
+      Password: <input type="password" name="password" ng-model="password" />
+      <button type="button" ng-click="register()">Register</button>
+      <button type="button" ng-click="login()">Login</button>
+      <span id="message" ng-if="message != null"> {{message}} </span>
+  </div>
+
+</body>
+
+</html>

@@ -3,23 +3,28 @@
 <html lang="en" ng-app="uap">
 
 <head>
-  <script type="text/javascript" src="pages/angular-1.4.3.min.js"></script>
-  <script type="text/javascript" src="pages/main-page.js"></script>
+  <script type="text/javascript" src="pages/angular-1.4.3.js"></script>
+  <script type="text/javascript" src="pages/angular-cookies.1.4.3.js"></script>
   <script type="text/javascript" src="pages/uap-app.js"></script>
 </head>
 
-<body onload="attachEvents()">
+<body>
   <h1>Welcome to Universal Application Platform(UAP)</h1>
 
-  <div id="my-form" ng-controller="SaveController">
-      Name: <input type="text" name="my-name" ng-model="name" ng-change="onChange()" />
-      Email: <input type="text" name="my-email" ng-model="email" ng-change="onChange()" />
-      <button type="button" ng-click="save()">Save</button>
-      <p/>
+  <div ng-controller="ApplyController">
+    {{user.nickname}}'s template:
+    <p/>
 
-      Name: <input type="text" name="name" readonly='readonly' value="{{name}}" />
-      Email: <input type="text" name="email" readonly='readonly' value="{{email}}" />
-      <span ng-if="saveResult != null"> {{saveResult}} </span>
+    <div>
+        Name: <input type="text" name="my-name" ng-model="name" ng-change="onChange()" />
+        Email: <input type="text" name="my-email" ng-model="email" ng-change="onChange()" />
+        <button type="button" ng-click="save()">Save</button>
+        <p/>
+
+        Name: <input type="text" name="name" readonly='readonly' value="{{name}}" />
+        Email: <input type="text" name="email" readonly='readonly' value="{{email}}" />
+        <span ng-if="saveResult != null"> {{saveResult}} </span>
+    </div>
   </div>
 
 </body>
