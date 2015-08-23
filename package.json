@@ -1,0 +1,17 @@
+{
+  "name": "uap",
+  "descripton": "Universal Application Platform",
+  "version": "0.0.1",
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/github-zbg/uap"
+  },
+  "dependencies": {
+    "angular": "^1.4.4",
+    "angular-cookies": "^1.4.4",
+    "hapi": "^9.0.3",
+    "hapi-auth-cookie": "^3.1.0",
+    "inert": "^3.0.1",
+    "mysql": "^2.9.0"
+  }
+}

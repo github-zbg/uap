@@ -1,6 +1,6 @@
 # Ignores of some 3rd-party codes
 node_modules/*
-angular-*.js
+angular*.js
 
 # Swap file of VIM
 *.swp
