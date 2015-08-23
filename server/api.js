@@ -1,6 +1,24 @@
-var apiResult = require('./api-result');
+// APIs for business logics.
 
-exports.saveUser = function(dbConnect, queryParams, callback) {
+var apiResult = require('./api-result');
+var db = require('./db');
+
+var dbConnect = null;
+// This function must be invoked before any other APIs.
+exports.init = function(callback) {
+  // Init by connecting to DB
+  dbConnect = db.createConnection();
+  dbConnect.connect(function(error) {
+    if (error) {
+      console.log('Failed to connect to DB: ' + error);
+    } else {
+      console.log('Connected to DB');
+    }
+    callback(error);
+  });
+}
+
+exports.saveUser = function(queryParams, callback) {
   var name = queryParams.name;
   var email = queryParams.email;
   console.log('Saving ' + name + ' with email ' + email);
@@ -26,7 +44,7 @@ exports.saveUser = function(dbConnect, queryParams, callback) {
   });
 };
 
-exports.registerUser = function(dbConnect, user, callback) {
+exports.registerUser = function(user, callback) {
   console.log('Register ' + user.nickname + ' with userid ' + user.userid);
   if (!user.nickname || !user.userid || !user.password) {
     callback(apiResult.errorResult(apiResult.ARGUMENT_ERROR,
@@ -49,7 +67,7 @@ exports.registerUser = function(dbConnect, user, callback) {
   });
 };
 
-exports.loginUser = function(dbConnect, userid, password, callback) {
+exports.loginUser = function(userid, password, callback) {
   console.log('Login for ' + userid);
   if (!userid || !password) {
     callback(apiResult.errorResult(apiResult.ARGUMENT_ERROR,

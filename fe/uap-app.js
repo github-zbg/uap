@@ -52,7 +52,7 @@ app.controller('LoginController',
           $cookies.putObject('user', userInfo);
           $window.location.href = '/';
         },
-        function(response) {  // on message
+        function(response) {  // on error
           $scope.message =
             response.status + ': ' + response.statusText + ', ' + response.data;
         });
@@ -75,7 +75,7 @@ app.controller('LoginController',
           $cookies.putObject('user', userInfo);
           $window.location.href = '/';
         },
-        function(response) {  // on message
+        function(response) {  // on error
           $scope.message =
             response.status + ': ' + response.statusText + ', ' + response.data;
         });
